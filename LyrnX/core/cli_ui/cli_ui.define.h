@@ -1,4 +1,5 @@
 #pragma once
+#include <wincon.h>
 #include <Windows.h>
 using namespace std;
 
@@ -49,6 +50,7 @@ namespace cli_def {
 }
 
 #ifndef CLI_UI_EVENT_FLAGS_DEFINED
+#define CLI_UI_EVENT_FLAGS_DEFINED
 
 #define CLI_KEYEVENT       0x1
 #define CLI_MOUSEEVENT     0x2

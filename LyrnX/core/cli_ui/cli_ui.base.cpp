@@ -12,38 +12,35 @@ namespace cli_base {
     hOut = cli_nt::hOut;
   }
 
-  bool point(POINT position, COLOR16 color) {
-    pointA(position, color, "", NULL);
-  }
-
-  bool pointA(POINT position, COLOR16 bgColor, string text, COLOR16 ftColor) {
+  inline bool pointA(POINT position, DWORD bgColor, string text) {
     auto rawText = text.c_str();
-    COORD pos{};
-    pos.X = position.x;
-    pos.Y = position.y;
 
-    return WriteConsoleOutputCharacterA(hOut, rawText, lstrlenA(rawText), pos, nullptr) != 0;
+    return WriteConsoleOutputCharacterA(hOut, rawText, lstrlenA(rawText), pt2cr(position), (LPDWORD) 0);
   }
   
-  bool pointW(POINT position, COLOR16 bgColor, wstring text, COLOR16 ftColor) {
+  inline bool pointW(POINT position, DWORD bgColor, wstring text) {
     auto rawText = text.c_str();
-    COORD pos{};
-    pos.X = position.x;
-    pos.Y = position.y;
 
-    return WriteConsoleOutputCharacterW(hOut, rawText, lstrlenW(rawText), pos, nullptr) != 0;
+    return WriteConsoleOutputCharacterW(hOut, rawText, lstrlenW(rawText), pt2cr(position), (LPDWORD) 0);
   }
 
-  bool line() {
-  
-  };
+  inline bool pointExA(POINT position, DWORD bgColor, wstring text, DWORD txtColor) {
 
-  bool lineA() {
+  }
 
-  };
-
-  bool lineW() {
+  inline bool lineA() {
 
   };
+
+  inline bool lineW() {
+
+  };
+
+  inline COORD pt2cr(POINT point) {
+    COORD cr{};
+    cr.X = point.x;
+    cr.Y = point.y;
+    return cr;
+  }
 
 }

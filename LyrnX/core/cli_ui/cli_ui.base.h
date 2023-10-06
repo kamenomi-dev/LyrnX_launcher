@@ -7,7 +7,7 @@ using namespace std;
 namespace cli_base {
 
   void handleUpdate();
-  bool pointA(POINT position, COLOR16 bgColor, string text, COLOR16 ftColor);
-  bool pointW(POINT position, COLOR16 bgColor, wstring text, COLOR16 ftColor);
+  bool pointA(POINT position, DWORD bgColor, string text);
+  bool pointW(POINT position, DWORD bgColor, wstring text);
 
 }
