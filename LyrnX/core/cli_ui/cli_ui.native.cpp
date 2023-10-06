@@ -3,16 +3,14 @@
 
 namespace cli_nt {
 
-  HANDLE hIn{};
-  HANDLE hOut{};
-
   DWORD origin_in_flag = 0;
   DWORD origin_out_flag = 0;
 
   bool InitHandle(HANDLE hIn, HANDLE hOut) {
-    if (hIn && hOut) {
+    if (hIn != 0 && hOut != 0) {
       return false;
     }
+
     hIn = hIn;
     hOut = hOut;
 
