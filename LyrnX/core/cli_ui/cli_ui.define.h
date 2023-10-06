@@ -4,9 +4,13 @@ using namespace std;
 
 namespace cli_def {
 
+  // cli_ui.cpp
+
   struct CliUI_InitOption {
     HANDLE handleIn, handleOut;
   };
+
+  // cli_ui.native.cpp
 
   struct EventMouseData {
     DWORD dwMouseType;
@@ -21,6 +25,25 @@ namespace cli_def {
     CHAR wInput;
     WCHAR wcInput;
     DWORD dwKeyControl;
+  };
+
+  // cli_ui.base.cpp
+
+  typedef struct __tagColorData {
+    // Single Color only;
+
+    COLOR16 sColor;
+
+    // Gradient Color only;
+
+    COLOR16 aColor;
+    COLOR16 bColor;
+  } CharColor, BgColor;
+
+  typedef struct __tagStringFormat {
+    RECT rcMarginRect;
+    CharColor stringColor;
+    BgColor BackgroundColor;
   };
 
 }

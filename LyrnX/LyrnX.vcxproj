@@ -128,7 +128,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\cli_ui\cli_ui.base.cpp" />
     <ClCompile Include="core\cli_ui\cli_ui.common.cpp" />
+    <ClCompile Include="core\cli_ui\cli_ui.components.cpp" />
     <ClCompile Include="core\cli_ui\cli_ui.cpp" />
     <ClCompile Include="core\cli_ui\cli_ui.native.cpp" />
     <ClCompile Include="core\LyrnX.cpp" />
@@ -136,9 +138,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\cli_ui\cli_ui.common.h" />
+    <ClInclude Include="core\cli_ui\cli_ui.components.h" />
     <ClInclude Include="core\cli_ui\cli_ui.define.h" />
     <ClInclude Include="core\cli_ui\cli_ui.h" />
     <ClInclude Include="core\cli_ui\cli_ui.native.h" />
+    <ClInclude Include="core\cli_ui\cli_ui.base.h" />
     <ClInclude Include="core\LyrnX.Logger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
