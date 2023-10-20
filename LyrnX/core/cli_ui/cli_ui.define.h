@@ -1,6 +1,6 @@
 #pragma once
-#include <wincon.h>
 #include <Windows.h>
+#include <wincon.h>
 using namespace std;
 
 namespace cli_def {

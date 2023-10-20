@@ -1,46 +1,88 @@
 // Here is components base, isn't logic base.
 #include "cli_ui.define.h"
-#include "cli_ui.base.h"
 #include "cli_ui.native.h"
+#include "cli_ui.base.h"
+#include <iostream>
 
 using namespace cli_def;
+HANDLE hCliOut = NULL;//cli_nt::hOut;
 
 namespace cli_base {
-  HANDLE hOut = cli_nt::hOut;
+
+  CONSOLE_SCREEN_BUFFER_INFOEX * info;
   
-  void handleUpdate() {
-    hOut = cli_nt::hOut;
+  void baseInit(HANDLE hOut) {
+    hCliOut = hOut;
+
+    info = new CONSOLE_SCREEN_BUFFER_INFOEX;
+    info->cbSize = sizeof info;
   }
 
-  inline bool pointA(POINT position, DWORD bgColor, string text) {
+  void pointA(POINT* position, int bgColor, string text) {
     auto rawText = text.c_str();
+    DWORD noop;
 
-    return WriteConsoleOutputCharacterA(hOut, rawText, lstrlenA(rawText), pt2cr(position), (LPDWORD) 0);
+    setColor(bgColor, NULL);
+    WriteConsoleOutputCharacterA(hCliOut, rawText, lstrlenA(rawText), pt2cr(*position), &noop);
+    restoreColor();
   }
   
-  inline bool pointW(POINT position, DWORD bgColor, wstring text) {
+  void pointW(POINT* position, int bgColor, wstring text) {
     auto rawText = text.c_str();
+    DWORD noop;
 
-    return WriteConsoleOutputCharacterW(hOut, rawText, lstrlenW(rawText), pt2cr(position), (LPDWORD) 0);
+    setColor(bgColor, NULL);
+    WriteConsoleOutputCharacterW(hCliOut, rawText, lstrlenW(rawText), pt2cr(*position), &noop);
+    restoreColor();
   }
 
-  inline bool pointExA(POINT position, DWORD bgColor, wstring text, DWORD txtColor) {
+  void pointExA(POINT* position, int bgColor, string text, int txtColor) {
+    auto rawText = text.c_str();
+    DWORD noop;
 
+    setColor(bgColor, txtColor);
+    WriteConsoleOutputCharacterA(hCliOut, rawText, lstrlenA(rawText), pt2cr(*position), &noop);
+    restoreColor();
   }
 
-  inline bool lineA() {
+  void lineA() {
 
   };
 
-  inline bool lineW() {
+  void lineW() {
 
   };
 
-  inline COORD pt2cr(POINT point) {
+  COORD pt2cr(POINT point) {
     COORD cr{};
     cr.X = point.x;
     cr.Y = point.y;
     return cr;
+  }
+
+  void setColor(DWORD edColor, DWORD frColor) {
+    if (info == nullptr) {
+      info = new CONSOLE_SCREEN_BUFFER_INFOEX;
+      info->cbSize = sizeof CONSOLE_SCREEN_BUFFER_INFOEX;
+
+      GetConsoleScreenBufferInfoEx(hCliOut, info);
+    };
+
+    info->srWindow.Bottom += 1;
+    CONSOLE_SCREEN_BUFFER_INFOEX newInfo = *info;
+
+    if (edColor != NULL)
+    newInfo.ColorTable[0] = edColor;
+
+    if (frColor != NULL)
+      newInfo.ColorTable[7] = frColor;
+    SetConsoleScreenBufferInfoEx(hCliOut, &newInfo);
+  }
+
+  void restoreColor() {
+    SetConsoleScreenBufferInfoEx(hCliOut, info);
+    delete info;
+    info = nullptr;
   }
 
 }

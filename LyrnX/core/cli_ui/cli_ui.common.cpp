@@ -35,7 +35,6 @@ namespace cli_cm {
       EventMap.emplace(event_code, new std::unordered_set<LONG_PTR>);
     }
 
-    std::cout << event_code;
     auto& value = EventMap.find(event_code)->second;
     
     for (auto it = value->begin(); it != value->end(); ++it) {
